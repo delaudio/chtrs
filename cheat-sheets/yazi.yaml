@@ -1,0 +1,39 @@
+name: Yazi
+description: Blazing fast terminal file manager with custom Git integrations
+sections:
+  - title: Navigation
+    items:
+      - { key: "h / l", desc: "Go to parent / enter directory" }
+      - { key: "j / k", desc: "Move down / up" }
+      - { key: "gg / G", desc: "Go to top / bottom" }
+      - { key: "~", desc: "Go to home directory" }
+      - { key: "z / Z", desc: "Jump with zoxide / fzf" }
+      - { key: ".", desc: "Toggle hidden files" }
+  - title: File Operations
+    items:
+      - { key: "e", desc: "Open in external editor (custom)" }
+      - { key: "y", desc: "Yank (copy) selected" }
+      - { key: "d", desc: "Cut selected" }
+      - { key: "p", desc: "Paste" }
+      - { key: "D", desc: "Permanently delete" }
+      - { key: "a / A", desc: "Create file / create directory" }
+      - { key: "r", desc: "Rename file" }
+  - title: Git & Custom Integrations
+    items:
+      - { key: "g c", desc: "Show Git changes (vcs-files plugin)" }
+      - { key: "g g", desc: "Open lazygit for current repository" }
+      - { key: "g d", desc: "Show side-by-side diff in delta" }
+      - { key: "<C-x>", desc: "Stop sample audition" }
+  - title: Search & Filtering
+    items:
+      - { key: "s", desc: "Search with fd" }
+      - { key: "S", desc: "Search with ripgrep" }
+      - { key: "<C-s>", desc: "Cancel search" }
+      - { key: "f", desc: "Filter items" }
+  - title: Tabs
+    items:
+      - { key: "t", desc: "New tab" }
+      - { key: "1-9", desc: "Switch to tab N" }
+      - { key: "[ / ]", desc: "Previous / next tab" }
+      - { key: "{ / }", desc: "Swap tab left / right" }
+      - { key: "<C-c>", desc: "Close tab" }

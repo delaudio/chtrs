@@ -1,0 +1,43 @@
+name: Neovim
+description: Hyperextensible Vim-based text editor with Kickstart & LSP setup
+sections:
+  - title: Navigation & Windows
+    items:
+      - { key: "h / j / k / l", desc: "Move left / down / up / right" }
+      - { key: "w / b / e", desc: "Next word / previous word / end of word" }
+      - { key: "0 / ^ / $", desc: "Start of line / first non-blank / end of line" }
+      - { key: "gg / G", desc: "Go to start of file / end of file" }
+      - { key: "<C-h> / <C-j>", desc: "Focus left / lower window" }
+      - { key: "<C-k> / <C-l>", desc: "Focus upper / right window" }
+      - { key: "<C-u> / <C-d>", desc: "Scroll half page up / down" }
+  - title: Buffer Management
+    items:
+      - { key: "[b / ]b", desc: "Previous buffer / next buffer" }
+      - { key: "<leader>bd", desc: "Delete current buffer" }
+      - { key: "<leader>bo", desc: "Delete all other buffers" }
+  - title: Search & Telescope (<leader>s)
+    items:
+      - { key: "<leader>sf", desc: "Search files" }
+      - { key: "<leader>sg", desc: "Live grep search" }
+      - { key: "<leader>sb", desc: "Search open buffers" }
+      - { key: "<leader>sd", desc: "Search diagnostics" }
+      - { key: "<leader>sh", desc: "Search help tags" }
+      - { key: "<leader>sr", desc: "Resume previous search" }
+      - { key: "<Esc>", desc: "Clear search highlight" }
+  - title: LSP & Diagnostics
+    items:
+      - { key: "gd", desc: "Go to definition" }
+      - { key: "gr", desc: "Go to references" }
+      - { key: "gI", desc: "Go to implementation" }
+      - { key: "K", desc: "Hover documentation" }
+      - { key: "<leader>rn", desc: "Rename symbol" }
+      - { key: "<leader>ca", desc: "Code action" }
+  - title: Editing & Modes
+    items:
+      - { key: "i / a / o", desc: "Insert before / after / new line below" }
+      - { key: "v / V / <C-v>", desc: "Visual mode / line visual / block visual" }
+      - { key: "u / <C-r>", desc: "Undo / redo" }
+      - { key: "y / d / c", desc: "Yank (copy) / delete / change" }
+      - { key: "p / P", desc: "Paste after / before" }
+      - { key: "gcc / gc", desc: "Comment line / selection" }
+      - { key: ":w / :q / :x", desc: "Save / quit / save and quit" }

@@ -1,0 +1,43 @@
+name: Lazygit
+description: Simple terminal UI for git commands with Delta pager
+sections:
+  - title: Navigation & Panels
+    items:
+      - { key: "1 / 2 / 3 / 4 / 5", desc: "Jump to Files / Local Branches / Commits / Stash / Status" }
+      - { key: "[ / ]", desc: "Switch tab within panel" }
+      - { key: "H / J / K / L", desc: "Move focus left / down / up / right" }
+      - { key: "esc / q", desc: "Close popup / quit lazygit" }
+      - { key: "?", desc: "Open help menu" }
+  - title: Files & Staging (Panel 1)
+    items:
+      - { key: "space", desc: "Toggle stage / unstage file or hunk" }
+      - { key: "a", desc: "Stage / unstage all files" }
+      - { key: "c", desc: "Commit staged changes" }
+      - { key: "C", desc: "Commit using git commit (opens editor)" }
+      - { key: "d", desc: "Discard changes to file" }
+      - { key: "e", desc: "Edit file in editor" }
+      - { key: "enter", desc: "View file diff / staging panel" }
+  - title: Commits & Rebase (Panel 3)
+    items:
+      - { key: "s", desc: "Squash commit into previous" }
+      - { key: "f", desc: "Fixup commit" }
+      - { key: "r", desc: "Reword commit message" }
+      - { key: "e", desc: "Edit commit" }
+      - { key: "d", desc: "Drop / delete commit" }
+      - { key: "g", desc: "Reset to commit (soft/mixed/hard)" }
+      - { key: "A", desc: "Amend commit with staged changes" }
+  - title: Branches & Remote (Panel 2)
+    items:
+      - { key: "space", desc: "Checkout branch" }
+      - { key: "n", desc: "Create new branch" }
+      - { key: "d", desc: "Delete branch" }
+      - { key: "M", desc: "Merge into current branch" }
+      - { key: "p", desc: "Pull from remote" }
+      - { key: "P", desc: "Push to remote" }
+      - { key: "f", desc: "Fast-forward pull" }
+  - title: Stashing (Panel 4)
+    items:
+      - { key: "s", desc: "Stash all changes" }
+      - { key: "space", desc: "Apply stash" }
+      - { key: "g", desc: "Pop stash" }
+      - { key: "d", desc: "Drop stash entry" }
