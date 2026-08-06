@@ -13,7 +13,7 @@ pub fn handle_events(app: &mut App) -> std::io::Result<()> {
                 KeyCode::Char('j') | KeyCode::Down => app.next(),
                 KeyCode::Char('k') | KeyCode::Up => app.previous(),
                 KeyCode::Char(c) if app.filter.is_empty() && c.is_alphabetic() => {
-                    // Inizia ricerca
+                    // Start search filtering
                     app.filter.push(c);
                 }
                 KeyCode::Backspace => {

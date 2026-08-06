@@ -13,7 +13,7 @@ pub fn draw(f: &mut Frame, app: &App) {
         .constraints([Constraint::Percentage(25), Constraint::Percentage(75)])
         .split(f.area());
 
-    // --- Pannello sinistro: lista programmi ---
+    // --- Left panel: program list ---
     let items: Vec<ListItem> = app
         .filtered_sheets()
         .iter()
@@ -34,11 +34,11 @@ pub fn draw(f: &mut Frame, app: &App) {
     let list = List::new(items).block(Block::default().borders(Borders::ALL).title("Programs"));
     f.render_widget(list, chunks[0]);
 
-    // --- Pannello destro: cheat sheet attivo ---
+    // --- Right panel: active cheat sheet ---
     if let Some(sheet) = app.current_sheet() {
         let mut text = Vec::new();
 
-        // Titolo
+        // Title
         text.push(Line::from(vec![
             Span::styled(
                 &sheet.name,
@@ -51,7 +51,7 @@ pub fn draw(f: &mut Frame, app: &App) {
         ]));
         text.push(Line::from(""));
 
-        // Sezioni
+        // Sections
         for section in &sheet.sections {
             text.push(Line::from(Span::styled(
                 &section.title,
@@ -82,12 +82,12 @@ pub fn draw(f: &mut Frame, app: &App) {
         f.render_widget(empty, chunks[1]);
     }
 
-    // --- Barra di ricerca in sovrimpressione (se attiva) ---
+    // --- Overlay search bar (if active) ---
     if !app.filter.is_empty() {
         let area = f.area().inner(Margin::new(10, 10));
         let search = Paragraph::new(format!("/{}", app.filter))
             .block(Block::default().borders(Borders::ALL).title("Search"));
-        f.render_widget(Clear, area); // pulisce lo sfondo
+        f.render_widget(Clear, area); // clear background
         f.render_widget(search, area);
     }
 }

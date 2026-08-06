@@ -2,8 +2,8 @@ use crate::cheatsheet::CheatSheet;
 
 pub struct App {
     pub sheets: Vec<CheatSheet>,
-    pub selected: usize, // quale cheat sheet è selezionato
-    pub filter: String,  // ricerca testuale
+    pub selected: usize, // currently selected cheat sheet index
+    pub filter: String,  // search filter text
     pub should_quit: bool,
 }
 
