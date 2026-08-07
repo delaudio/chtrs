@@ -1,0 +1,24 @@
+┌Programs──────────┐┌Cheat Sheet───────────────────────────────────────────────┐
+│git               ││git — Version control system                              │
+│                  ││                                                          │
+│                  ││Basics                                                    │
+│                  ││git status     Show working tree status                   │
+│                  ││git diff       Show changes between commits               │
+│                  ││                                                          │
+│                  ││Branching                                                 │
+│                  ││git switch -c  Create and switch to new branch            │
+│                  ││                                                          │
+│         ┌Search────────────────────────────────────────────────────┐         │
+│         │/gi                                                       │         │
+│         │                                                          │         │
+│         └──────────────────────────────────────────────────────────┘         │
+│                  ││                                                          │
+│                  ││                                                          │
+│                  ││                                                          │
+│                  ││                                                          │
+│                  ││                                                          │
+│                  ││                                                          │
+│                  ││                                                          │
+│                  ││                                                          │
+│                  ││                                                          │
+└──────────────────┘└──────────────────────────────────────────────────────────┘

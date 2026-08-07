@@ -1,0 +1,81 @@
+name: trk
+description: MIDI-first terminal music tracker & CLI tool
+sections:
+  - title: Global & Navigation
+    items:
+      - { key: "? / H", desc: "Open in-app Help overlay" }
+      - { key: "Ctrl + P", desc: "Open Command Palette" }
+      - { key: ":", desc: "Open command mode prompt" }
+      - { key: "Esc", desc: "Clear selection / Back to Tracker view / Cancel" }
+      - { key: "q", desc: "Quit trk" }
+      - { key: "h / j / k / l", desc: "Navigate left / down / up / right (Vim mode)" }
+      - { key: "Arrows", desc: "Navigate grid / Adjust BPM (Up/Down) or LPB (Left/Right)" }
+      - { key: "Tab / Shift + Tab", desc: "Next / Previous track" }
+      - { key: "Home / End", desc: "Jump to first / last row" }
+      - { key: "gg / G", desc: "Jump to top / bottom of pattern (Vim mode)" }
+      - { key: "PageUp / PageDown", desc: "Scroll pattern up / down" }
+
+  - title: Views & Modes (Function Keys)
+    items:
+      - { key: "F1 / F2", desc: "Octave down / up" }
+      - { key: "F3", desc: "Rename current pattern" }
+      - { key: "F4", desc: "Open MIDI Settings view" }
+      - { key: "F6", desc: "Set pattern length command" }
+      - { key: "F7", desc: "Open Sequence View" }
+      - { key: "F9", desc: "Open Tracks View" }
+      - { key: "F10", desc: "Open Patterns View" }
+      - { key: "i", desc: "Enter Edit mode" }
+      - { key: "v / V", desc: "Visual selection mode" }
+
+  - title: Transport & Playback
+    items:
+      - { key: "Space", desc: "Toggle play / pause" }
+      - { key: "Shift + Space", desc: "Start playback from beginning" }
+      - { key: "Enter", desc: "Start playback from current cursor row" }
+      - { key: "Shift + Enter", desc: "Start sequence playback from selected position" }
+      - { key: "F8", desc: "Stop playback" }
+      - { key: "L", desc: "Toggle loop mode" }
+      - { key: "Shift + P", desc: "MIDI Panic (silence all notes)" }
+
+  - title: Editing & Pattern Operations
+    items:
+      - { key: "c / Cut: x / Paste: v", desc: "Copy / Cut / Paste selection or cell" }
+      - { key: "Delete", desc: "Delete current row / clear selection" }
+      - { key: "Insert", desc: "Insert empty row at cursor" }
+      - { key: "z / Shift + Z (y)", desc: "Undo / Redo" }
+      - { key: "s", desc: "Save project" }
+      - { key: "Shift + S", desc: "Save project as..." }
+      - { key: "r / c", desc: "Rename track / Change track MIDI channel" }
+      - { key: "m / s", desc: "Mute / Solo current track" }
+      - { key: "D", desc: "Duplicate current track" }
+      - { key: "{ / }", desc: "Move track left / right" }
+      - { key: "[ / ]", desc: "Select previous / next pattern" }
+
+  - title: Sequence & Pattern Management
+    items:
+      - { key: "N", desc: "Create new pattern" }
+      - { key: "P", desc: "Duplicate current pattern" }
+      - { key: "X", desc: "Delete current pattern" }
+      - { key: "A", desc: "Add pattern to sequence" }
+      - { key: ", / .", desc: "Previous / Next sequence position" }
+      - { key: "Y / R", desc: "Duplicate / Remove selected sequence position" }
+      - { key: "T", desc: "Set selected sequence item to current pattern" }
+      - { key: "< / >", desc: "Move sequence position up / down" }
+
+  - title: AI Assistant & Job View
+    items:
+      - { key: "a", desc: "Apply AI proposal" }
+      - { key: "r", desc: "Reject AI proposal" }
+      - { key: "p", desc: "Preview AI proposal diff" }
+      - { key: "c", desc: "Cancel active AI task" }
+      - { key: "Enter", desc: "Submit prompt in AI composer" }
+
+  - title: CLI Commands
+    items:
+      - { key: "trk [FILE]", desc: "Open tracker TUI (optionally load FILE)" }
+      - { key: "trk --list-midi-outputs", desc: "List available MIDI output ports" }
+      - { key: "trk transform euclidean", desc: "Generate Euclidean rhythm on pattern" }
+      - { key: "trk import midi | xrns | musicxml", desc: "Import project from MIDI / XRNS / MusicXML" }
+      - { key: "trk export audio | stems | strudel", desc: "Export WAV / multi-track stems / Strudel code" }
+      - { key: "trk sample inspect FILE", desc: "Inspect sample waveform and metadata" }
+      - { key: "trk report project | critique", desc: "Generate Markdown project overview or feedback" }

@@ -1,0 +1,52 @@
+name: norn
+description: Local-first code review workspace for GitHub & Bitbucket (CLI, TUI, App)
+sections:
+  - title: Navigation & Browsing (TUI)
+    items:
+      - { key: "j / Down", desc: "Select next item / field" }
+      - { key: "k / Up", desc: "Select previous item / field" }
+      - { key: "Tab", desc: "Toggle panel focus" }
+      - { key: "Enter", desc: "Load selected PR" }
+      - { key: "r", desc: "Refresh active view" }
+      - { key: "f", desc: "Cycle PR filters" }
+      - { key: "v", desc: "Toggle PR detail view" }
+      - { key: "q / Esc", desc: "Quit norn-tui / Cancel modal" }
+      - { key: "PageUp / PageDown", desc: "Scroll detail pane up / down" }
+      - { key: "Home", desc: "Reset detail scroll" }
+
+  - title: Diff & Image Viewers (TUI)
+    items:
+      - { key: "g", desc: "Open diff view" }
+      - { key: "u", desc: "Toggle diff view mode (unified vs split)" }
+      - { key: "i", desc: "Toggle image preview side" }
+
+  - title: Reviewing & Comments (TUI)
+    items:
+      - { key: "c", desc: "Start comment composer" }
+      - { key: "Enter", desc: "Stage composer comment" }
+      - { key: "p", desc: "Publish draft comments to provider" }
+      - { key: "x", desc: "Discard draft comments" }
+      - { key: "a", desc: "Start AI review run (Claude/Codex)" }
+      - { key: "y", desc: "Copy AI review output to clipboard" }
+      - { key: "s", desc: "Open settings view" }
+
+  - title: Onboarding & Doctor (CLI)
+    items:
+      - { key: "norn init", desc: "Initialize repository policy (.norn.yaml)" }
+      - { key: "norn setup", desc: "Interactive CLI onboarding" }
+      - { key: "norn doctor", desc: "Run environment & credential health check" }
+
+  - title: Code Review Runs (CLI)
+    items:
+      - { key: "norn review --scope working-tree", desc: "Review local working tree diff" }
+      - { key: "norn review --scope branch", desc: "Review current branch against base ref" }
+      - { key: "norn review --pr ID", desc: "Review specific pull request by ID" }
+      - { key: "norn review --ai-provider claude", desc: "Run AI code review with Claude model" }
+      - { key: "norn review --fail-on-findings", desc: "Fail CLI run if review findings detected" }
+
+  - title: Config & Metrics (CLI)
+    items:
+      - { key: "norn config validate", desc: "Validate .norn.yaml syntax and settings" }
+      - { key: "norn config migrate", desc: "Migrate legacy .lachesi.yaml config" }
+      - { key: "norn metrics", desc: "View closed-PR review quality analytics" }
+      - { key: "norn-app", desc: "Launch Norn Tauri desktop application" }

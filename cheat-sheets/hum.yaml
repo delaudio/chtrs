@@ -1,0 +1,38 @@
+name: hum
+description: Lightweight launcher and terminal monitor for local multi-service environments
+sections:
+  - title: Service Management (TUI)
+    items:
+      - { key: "j / k / Down / Up", desc: "Select next / previous service" }
+      - { key: "Space", desc: "Start / stop selected service" }
+      - { key: "r", desc: "Restart selected service" }
+      - { key: "Enter", desc: "Open service details view" }
+      - { key: "l", desc: "Open service logs view" }
+      - { key: "o", desc: "Open configured service URL in browser" }
+      - { key: "p", desc: "Open template selection modal" }
+      - { key: "d", desc: "Run environment doctor check" }
+      - { key: "?", desc: "Open Help view" }
+      - { key: "q / Esc", desc: "Quit TUI (with quit confirmation modal)" }
+
+  - title: Log Viewer (TUI)
+    items:
+      - { key: "j / k / Down / Up", desc: "Scroll logs 1 line down / up" }
+      - { key: "PageUp / PageDown", desc: "Scroll logs by page" }
+      - { key: "Home / End", desc: "Jump to oldest logs / Return to live tail" }
+      - { key: "/", desc: "Search log text" }
+      - { key: "c", desc: "Clear active search filter" }
+      - { key: "Esc / q", desc: "Close log view / Back to service list" }
+
+  - title: Service Lifecycle (CLI)
+    items:
+      - { key: "hum <proj> <tpl> start", desc: "Start template services in detached process groups" }
+      - { key: "hum <proj> <tpl> stop", desc: "Stop template services gracefully" }
+      - { key: "hum <proj> <tpl> restart", desc: "Restart template services" }
+      - { key: "hum <proj> <tpl> status", desc: "Show service runtime state, PIDs and ports" }
+      - { key: "hum <proj> <tpl> logs [svc]", desc: "Tail persistent service log files" }
+
+  - title: Diagnostics & Configuration (CLI)
+    items:
+      - { key: "hum <proj> <tpl> doctor", desc: "Check local environment, ports and dependencies" }
+      - { key: "hum <proj> <tpl> tui", desc: "Open TUI monitor in project/template context" }
+      - { key: "hum config validate", desc: "Validate global & project hum.yaml config" }

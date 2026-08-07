@@ -1,7 +1,5 @@
-mod app;
-mod cheatsheet;
-mod events;
-mod ui;
+use chtrs::{app, cheatsheet, events, ui};
+
 
 use crossterm::{
     event::{DisableMouseCapture, EnableMouseCapture},
