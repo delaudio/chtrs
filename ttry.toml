@@ -1,0 +1,14 @@
+timeout_ms = 120000
+reporter = "list"
+
+[[tests]]
+name = "chtrs starts and exits"
+command = "cargo"
+args = ["run", "--quiet", "--bin", "chtrs"]
+cwd = "."
+cols = 100
+rows = 30
+expect_text = "Programs"
+input_after_expect = "q"
+expect_exit_code = 0
+shutdown_timeout_ms = 1000
