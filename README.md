@@ -45,6 +45,17 @@ cargo install --path .
 
 Now you can run **`chtrs`** from **any directory** in your terminal!
 
+## 🧪 End-to-end smoke test
+
+The repository includes a [`ttry.toml`](ttry.toml) smoke test that starts the
+application in a real pseudo-terminal, sends `q`, and verifies its clean exit.
+Install a released `ttry` binary, then run the test from this checkout:
+
+```bash
+brew install delaudio/tap/ttry
+ttry test
+```
+
 ---
 
 ## 🕹️ Keybindings & Usage
