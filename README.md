@@ -23,6 +23,9 @@
 - **Neovim**: Window Navigation, Buffer management, Telescope searching, LSP diagnostics, and custom bindings.
 - **Yazi**: File operations, Navigation, custom Git integration shortcuts (`g c`, `g g`, `g d`).
 - **Lazygit**: Staging, Commit operations, Branch management, Rebase shortcuts, and Patching.
+- **Hum**: Service lifecycle management, planning, status, secrets sync, and TUI shortcuts.
+- **Norn**: Policy enforcement, credentials, CLI workflows, and metric inspections.
+- **Trk**: Time tracking, project management, and task control shortcuts.
 
 ---
 
@@ -62,10 +65,12 @@ ttry test
 
 | Key / Command | Action |
 | :--- | :--- |
-| `j` / `Down` | Move selection down |
-| `k` / `Up` | Move selection up |
-| `Tab` / `Shift+Tab` | Switch active Cheat Sheet tab |
-| `q` / `Esc` | Quit `chtrs` |
+| `j` / `Down` | Move selection down (next sheet) |
+| `k` / `Up` | Move selection up (previous sheet) |
+| `a-z` (Letter keys) | Start or extend search filter |
+| `Backspace` | Delete last character from search filter |
+| `Esc` | Clear search filter |
+| `q` | Quit `chtrs` |
 
 ---
 
