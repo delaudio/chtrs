@@ -1,0 +1,5 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": { "jsxImportSource": "react", "types": ["node", "vite/client"], "resolveJsonModule": true },
+  "include": ["./**/*.ts", "./**/*.tsx", "../.storybook/**/*.ts", "../vitest.config.ts"]
+}

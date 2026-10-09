@@ -3,12 +3,12 @@ reporter = "list"
 
 [[tests]]
 name = "chtrs starts and exits"
-command = "cargo"
-args = ["run", "--quiet", "--bin", "chtrs"]
+command = "./dist/chtrs"
+args = []
 cwd = "."
 cols = 100
 rows = 30
-expect_text = "Programs"
+expect_text = "PROGRAMS"
 input_after_expect = "q"
 expect_exit_code = 0
 shutdown_timeout_ms = 1000

@@ -1,0 +1,40 @@
+name: Git Worktree
+description: Multiple working directories on one repo — run tests on one branch while coding on another
+sections:
+  - title: Create
+    items:
+      - { key: "git worktree add ../wt/<name> -b <branch> [<start-point>]", desc: "New worktree + new branch (defaults start-point to HEAD)" }
+      - { key: "git worktree add ../wt/<name> <branch>", desc: "New worktree checking out an existing local branch" }
+      - { key: "git worktree add ../wt/<name> origin/<branch>", desc: "New worktree tracking a remote branch" }
+      - { key: "git worktree add -d ../wt/<name> <commit>", desc: "Detached worktree at a specific commit/tag" }
+  - title: Inspect
+    items:
+      - { key: "git worktree list", desc: "List all worktrees with branch + HEAD" }
+      - { key: "git worktree list --porcelain", desc: "Machine-readable listing" }
+  - title: Remove & Clean Up
+    items:
+      - { key: "git worktree remove ../wt/<name>", desc: "Remove a worktree (fails if dirty)" }
+      - { key: "git worktree remove -f ../wt/<name>", desc: "Force-remove even with uncommitted changes" }
+      - { key: "git branch -d <branch>", desc: "Delete the branch after the worktree is removed" }
+      - { key: "git worktree prune", desc: "Clean up stale metadata for manually-deleted worktree dirs" }
+  - title: Maintenance
+    items:
+      - { key: "git worktree lock ../wt/<name>", desc: "Prevent prune from removing (e.g. on a removable drive)" }
+      - { key: "git worktree unlock ../wt/<name>", desc: "Unlock a locked worktree" }
+      - { key: "git worktree move ../wt/<old> ../wt/<new>", desc: "Relocate a worktree directory" }
+      - { key: "git worktree repair", desc: "Fix worktree/gitdir links after moving repo or worktree by hand" }
+  - title: Agentic Coding Workflow
+    items:
+      - { key: "1. keep main checkout busy (tests/build running)", desc: "Don't touch it — no branch switching mid-run" }
+      - { key: "2. git worktree add ../wt/<task> -b feature/<task> main", desc: "Spin up an isolated dir per parallel task/agent" }
+      - { key: "3. pnpm install (per worktree)", desc: "Monorepo deps aren't shared across worktrees, pnpm store makes it fast" }
+      - { key: "4. commit / push / open PR from inside the worktree", desc: "Works exactly like a normal repo checkout" }
+      - { key: "5. git worktree remove ../wt/<task>", desc: "Tear down once the PR is merged/closed" }
+  - title: Examples
+    items:
+      - { key: "git worktree add ../compri-wt/CB-2472 -b feature/CB-2472 main", desc: "New task branch off main in a sibling folder, ready to code" }
+      - { key: "cd ../compri-wt/CB-2472 && pnpm install && pnpm --filter procurement-frontend dev", desc: "Install deps in the worktree and boot just that app" }
+      - { key: "git worktree add ../compri-wt/review-183 origin/feature/chat-improvements", desc: "Check out a teammate's PR branch to review/test without disturbing your work" }
+      - { key: "git worktree add -d ../compri-wt/hotfix-check 52e1d801", desc: "Poke around a specific past commit in a detached worktree" }
+      - { key: "git worktree list", desc: "→ /Users/fdg/dev/compri/compri-applications  abc1234 [main]\n  /Users/fdg/dev/compri/compri-wt/CB-2472  def5678 [feature/CB-2472]" }
+      - { key: "git worktree remove ../compri-wt/CB-2472 && git branch -d feature/CB-2472", desc: "PR merged — tear down worktree then delete the local branch" }

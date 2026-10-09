@@ -1,271 +1,164 @@
 # chtrs
 
-> A fast, elegant terminal cheat sheet and keybinding browser.
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Linux-lightgrey.svg)]()
-[![Language: Rust](https://img.shields.io/badge/Language-Rust-orange.svg)]()
-[![UI: Ratatui](https://img.shields.io/badge/UI-Ratatui-blue.svg)]()
-
-`chtrs` (Cheat Sheets TUI) is a lightweight, responsive terminal application written in **Rust**, **Ratatui**, and **Crossterm**. It lets you quickly search, browse, and reference keyboard shortcuts, commands, and workflow cheat sheets directly from your terminal with instant fuzzy filtering and multi-source YAML loading.
-
----
-
-## Table of Contents
-
-- [Overview & Architecture](#overview--architecture)
-- [Installation](#installation)
-  - [From Source (Cargo)](#from-source-cargo)
-  - [Config Directory Setup](#config-directory-setup)
-- [Quick Start](#quick-start)
-- [Key Features](#key-features)
-- [Bundled Cheat Sheets](#bundled-cheat-sheets)
-- [TUI Commands & Keybindings](#tui-commands--keybindings)
-  - [Navigation & Sheet Selection](#navigation--sheet-selection)
-  - [Real-Time Search Filtering](#real-time-search-filtering)
-  - [Application Lifecycle](#application-lifecycle)
-- [Cheat Sheet Configuration & YAML Schema](#cheat-sheet-configuration--yaml-schema)
-  - [Discovery Order & Locations](#discovery-order--locations)
-  - [YAML Schema & Custom Sheet Example](#yaml-schema--custom-sheet-example)
-- [Development & Testing](#development--testing)
-  - [UI Snapshot Tests](#ui-snapshot-tests)
-  - [End-to-End PTY Smoke Tests (`ttry`)](#end-to-end-pty-smoke-tests-ttry)
-- [License](#license)
-
----
-
-## Overview & Architecture
-
-`chtrs` is designed with a clean, decoupled architecture:
-
-```text
-               ┌──────────────────────────────────────────────┐
-               │              Crossterm Event Loop            │
-               │   (50ms Non-blocking Polling, Mouse Capture) │
-               └──────────────────────┬───────────────────────┘
-                                      │
-               ┌──────────────────────┴───────────────────────┐
-               │               App State Engine               │
-               │  (Active Selection, Search Filter, Indexing) │
-               └──────────┬───────────────────────┬───────────┘
-                          │                       │
-         ┌────────────────┴───┐       ┌───────────┴──────────┐
-         │  CheatSheet Loader │       │     Ratatui TUI      │
-         │  (YAML Multi-Dir   │       │  (Split-Pane Layout, │
-         │   Discovery)       │       │   Search Overlay)    │
-         └────────┬───────────┘       └───────────┬──────────┘
-                  │                               │
-   ┌──────────────┼──────────────┐                │
-   │              │              │                │
-┌──┴──────────┐ ┌─┴────────────┐ ┌┴─────────────┐ │
-│ Local Dir   │ │ Global XDG   │ │ Binary Dir   │ │
-│ (./cheat-   │ │ (~/.config/  │ │ (<exe_dir>/  │ │
-│  sheets/)   │ │  chtrs/)     │ │  cheat-      │ │
-│             │ │              │ │  sheets/)    │ │
-└─────────────┘ └──────────────┘ └──────────────┘ │
-                                                  │
-                 ┌────────────────────────────────┴───────────┐
-                 │  Left (25%): Program List & Highlight     │
-                 │  Right (75%): Formatted Sections & Keys    │
-                 │  Overlay: Centered Active Search Bar       │
-                 └────────────────────────────────────────────┘
-```
-
-Cheat sheets are loaded and deduplicated at startup from project-local, global config, or executable-adjacent directories. The user interface continuously synchronizes selection and real-time query filtering across a responsive split-pane layout.
-
----
+A terminal cheat sheet and keybinding browser built with **TypeScript, React and
+OpenTUI**. It keeps a 25% program list / 75% detail layout with an OpenCode-inspired
+dark palette, searchable program names and scrollable shortcuts.
 
 ## Installation
 
-### From Source (Cargo)
-
-Build and install `chtrs` locally using Cargo:
+Use a recent Bun release (1.3.14 or newer recommended) to build the executable:
 
 ```bash
-git clone https://github.com/delaudio/chtrs.git
-cd chtrs
-cargo install --path .
-```
-
-### Config Directory Setup
-
-Copy the bundled cheat sheets into your global configuration directory so they are available from any working directory:
-
-```bash
-mkdir -p ~/.config/chtrs/cheat-sheets
-cp -r cheat-sheets/* ~/.config/chtrs/cheat-sheets/
-```
-
-Now you can run `chtrs` anywhere in your terminal.
-
----
-
-## Quick Start
-
-Launch `chtrs`:
-
-```bash
+bun install --registry https://registry.npmjs.org
+bun run install:local
 chtrs
 ```
 
-Inside the TUI:
-- Press **`j`** / **`k`** or **`Down`** / **`Up`** to browse through registered cheat sheets.
-- Type any letters (e.g. `nav` or `git`) to **instantly filter** the sheet list.
-- Press **`Esc`** to clear the search query and restore the full list.
-- Press **`q`** to quit.
+`install:local` builds `dist/chtrs` and installs it atomically. It replaces an existing
+`chtrs` executable on your PATH when that executable is inside your home directory;
+otherwise it installs to `~/.local/bin`. Keep the chosen directory on PATH. To choose
+an explicit installation directory:
 
----
+```bash
+CHTRS_BIN_DIR="$HOME/.local/bin" bun run install:local
+```
 
-## Key Features
+If another `chtrs` appears earlier on PATH, put your chosen directory first.
+The installer reports the exact path and refuses to replace symlinks or directories.
+Run `bun run install:local` again after updating the project.
 
-### ⚡ Instant Startup & Zero Overhead
-- **Native Performance**: Pure Rust binary with instant start times (< 10 ms) and minimal memory footprint.
-- **Offline & Self-Contained**: No external network dependencies or resident background daemons.
+The compiled executable includes the Bun runtime, OpenTUI's native library and all
+bundled cheat sheets. It works offline from any working directory without the source
+checkout or a separate Bun installation. Build separately for each target platform.
+Existing user YAML files remain external and take precedence over bundled defaults.
 
-### 🔍 Real-Time Interactive Search
-- **Fuzzy Prefix Filtering**: Simply start typing to narrow down available sheets in real-time.
-- **Non-Modal Querying**: Instant search overlay appears dynamically without requiring complex search mode transitions.
+## Keyboard controls
 
-### 📂 Multi-Source Discovery & Deduplication
-- **Cascading Discovery**: Automatically loads sheets from project-local directories (`./cheat-sheets`), user global config (`~/.config/chtrs/cheat-sheets`), and binary-relative paths.
-- **Automatic Deduplication**: Multiple sheets sharing the same name are deduplicated according to priority order.
+| Key | Action |
+| --- | --- |
+| `↑` / `↓`, `j` / `k` | Navigate programs; scroll when the detail pane is active |
+| `Tab` | Switch between programs and details |
+| `PageUp` / `PageDown` | Scroll the cheat sheet from either pane |
+| `/` or typing | Search program names (case-insensitive substring matching) |
+| `Enter` | Finish editing the query, keeping the filtered results |
+| `Esc` | Clear search and restore all programs |
+| `Backspace` | Remove the last query character |
+| `q` | Quit outside search editing |
+| `Ctrl+C` | Quit at any time |
 
-### 🎨 Split-Pane Responsive Layout
-- **Clean Layout**: 25% sidebar for program selection with visual cyan highlight and 75% main viewport for cheat sheet details.
-- **Structured Rendering**: Formatted section headers, aligned key column layouts, and automatic word wrapping.
+While editing search, `j`, `k`, and `q` are ordinary characters; use the arrow
+keys to navigate matches. Start with `/` to search for a name beginning with one
+of those letters. Pasting a query and mouse-wheel scrolling are supported.
+Use `chtrs --help` for a quick reminder.
 
-### 📝 Human-Readable YAML Format
-- **Declarative Schema**: Easy to maintain and version-control custom cheat sheets in standard `.yaml` or `.yml` files.
+## Cheat sheets
 
-### 🧪 Comprehensive Quality & Snapshot Testing
-- **Snapshot Suite**: Automated UI render regression testing across multiple terminal dimensions (compact, default, wide).
-- **PTY Smoke Testing**: End-to-end terminal emulation tests via `ttry`.
+Files with `.yaml` or `.yml` extensions are loaded in this priority order:
 
----
+1. `./cheat-sheets/`, then `./cheat_sheets/` in the current working directory.
+2. `~/.config/chtrs/cheat-sheets/`, then `~/.config/chtrs/`.
+3. `cheat-sheets/` next to the executable.
+4. The source checkout's `cheat-sheets/` directory when running from source.
+5. Bundled defaults embedded at build time when running the compiled executable.
 
-## Bundled Cheat Sheets
+First name wins; files within each directory are sorted for deterministic loading.
+The final program list is sorted by name. Invalid files are skipped and counted in
+the status bar on wide terminals; if no sheets load, diagnostic paths appear in the
+detail pane. Builds fail if a bundled YAML file is invalid.
 
-`chtrs` includes curated, high-density reference sheets for common modern CLI tools and terminal workflows:
-
-| Cheat Sheet | Covered Topics & Workflows |
-| :--- | :--- |
-| **`trk`** | MIDI tracker navigation, function keys (`F1`-`F10`), transport, editing, sampling, native DSP, and parameter locks. |
-| **`hum`** | Service lifecycle management (`start`, `stop`, `restart`), plan inspection, secrets sync, TUI shortcuts, and doctor checks. |
-| **`neovim`** | Window navigation, buffer management, Telescope searching, LSP diagnostics, code actions, and keymap layers. |
-| **`lazygit`** | Stage/unstage, commit operations, branch management, interactive rebase, stashing, and cherry-picking. |
-| **`yazi`** | File operations, tab management, visual navigation, selection, and custom Git integration shortcuts (`g c`, `g g`, `g d`). |
-| **`norn`** | Policy validation, credential workflows, task execution, CLI options, and health metric inspections. |
-
----
-
-## TUI Commands & Keybindings
-
-### Navigation & Sheet Selection
-
-| Key / Shortcut | Action |
-| :--- | :--- |
-| `j` / `Down` | Select next cheat sheet in list |
-| `k` / `Up` | Select previous cheat sheet in list |
-
-### Real-Time Search Filtering
-
-| Key / Shortcut | Action |
-| :--- | :--- |
-| `a-z` / `A-Z` | Append character to search filter and update visible list |
-| `Backspace` | Delete last character from search query |
-| `Esc` | Clear active search filter |
-
-### Application Lifecycle
-
-| Key / Shortcut | Action |
-| :--- | :--- |
-| `q` | Exit `chtrs` (when search query is empty) |
-
----
-
-## Cheat Sheet Configuration & YAML Schema
-
-### Discovery Order & Locations
-
-When `chtrs` starts, it scans and merges cheat sheet files (`*.yaml` / `*.yml`) in the following search order:
-
-1. **Project-Local Directory**: `./cheat-sheets/` or `./cheat_sheets/` (relative to current working directory).
-2. **User Global Config Directory**: `~/.config/chtrs/cheat-sheets/` and `~/.config/chtrs/`.
-3. **Executable Directory**: `<path_to_binary>/cheat-sheets/`.
-
-Sheets are sorted alphabetically by `name` and deduplicated (first discovery wins).
-
-### YAML Schema & Custom Sheet Example
-
-Create custom cheat sheet files in `~/.config/chtrs/cheat-sheets/<name>.yaml`:
+The bundled collection covers Lazygit, Neovim, Yazi, hum, norn, trk and Git worktrees.
+Add custom sheets to `~/.config/chtrs/cheat-sheets/` using the same schema:
 
 ```yaml
 name: Docker
-description: Core container lifecycle commands and Compose workflows
-
+description: Container lifecycle commands
 sections:
-  - title: Container Operations
+  - title: Containers
     items:
       - key: "docker ps"
         desc: "List running containers"
       - key: "docker ps -a"
-        desc: "List all containers including stopped ones"
-      - key: "docker exec -it <id> bash"
-        desc: "Open interactive bash shell inside container"
-      - key: "docker logs -f <id>"
-        desc: "Follow live container logs"
-
-  - title: Docker Compose
-    items:
-      - key: "docker compose up -d"
-        desc: "Start stack services in detached background mode"
-      - key: "docker compose down"
-        desc: "Stop and remove containers, networks, and internal links"
-      - key: "docker compose down -v"
-        desc: "Stop stack and delete named persistent volumes"
-      - key: "docker compose restart <svc>"
-        desc: "Restart specific service container"
+        desc: "List all containers"
 ```
 
----
-
-## Development & Testing
-
-### Code Quality & Build
+## Development
 
 ```bash
-cargo fmt --check
-cargo clippy --all-targets --all-features -- -D warnings
-cargo build --release
+bun start
+bun test
+bun run typecheck
+bun run build
+./dist/chtrs
 ```
 
-### UI Snapshot Tests
+- `tui/components/`: one React component per file, composed by `CheatSheetUI`.
+- `tui/hooks/useAppInput.ts`: keyboard and paste handling.
+- `tui/ui.tsx`: mounting and unmounting the React root.
+- `tui/app.ts`: application store connected through `useSyncExternalStore`.
+- `tui/cheatsheet.ts`: YAML validation, directory discovery and loading.
+- `scripts/build.ts`: compile the executable with bundled defaults.
+- `scripts/install.ts`: install the compiled executable.
 
-`chtrs` uses a built-in snapshot test suite to verify terminal frame rendering across different window sizes and state transitions:
+Tests cover directory precedence, schema validation, bundled fallbacks,
+search/navigation, paste, scrolling, lifecycle, resize and rendering at 50×15,
+80×24 and 120×30 terminal sizes. The optional `ttry.toml` smoke test runs the built
+executable: run `bun run build` followed by `ttry test` if ttry is installed.
+
+The palette reference is [OpenCode's default theme](https://github.com/anomalyco/opencode/blob/dev/packages/tui/src/theme/assets/opencode.json).
+
+## Storybook and visual screenshots
 
 ```bash
-cargo test
+# First setup (Node.js 22.12+ or 24+, plus Bun)
+bun install --registry https://registry.npmjs.org
+bunx playwright install chromium
+
+# Browse the component catalogue at http://127.0.0.1:6007
+bun run storybook
+
+# Render the stories; compare or explicitly update PNG baselines
+bun run test:storybook
+bun run test:storybook:visual
+bun run test:storybook:visual:update
+
+# Optional: run only stories matching a file-name filter
+bun run test:storybook:visual:update Header
+
+# Static catalogue and type checks
+bun run build-storybook
+bun run typecheck:storybook
 ```
 
-Snapshots are stored in `tests/snapshots/` and validate:
-- Empty state rendering
-- Default split-pane view
-- Selection navigation
-- Active search overlay filtering
-- Responsive compact (50x15) and wide (120x30) terminal dimensions
+This follows the Compri Storybook workflow: Storybook + Vitest Browser + Playwright,
+explicit baseline-update commands, and a server wrapper that waits for `/index.json`
+before testing and shuts down only processes it started. The default port is **6007**
+to coexist with Compri on 6006; override it with `STORYBOOK_PORT=6010`.
 
-### End-to-End PTY Smoke Tests (`ttry`)
+OpenTUI uses native Bun/FFI APIs, so the browser cannot mount its components directly.
+`scripts/render-stories.tsx` renders the actual React/OpenTUI components headlessly,
+then exports terminal cells, colors and text attributes to `storybook/generated/frames.json`.
+`TerminalPreview` displays those cells with the bundled JetBrains Mono font. These are
+**static native-rendered previews**, not an interactive terminal or duplicate HTML
+implementations of the components. Keyboard, paste, scrolling and lifecycle behavior
+remain covered by `bun test` against the native renderer. A user's terminal font can
+look different from the fixed screenshot font.
 
-The repository includes a [`ttry.toml`](ttry.toml) test suite that executes `chtrs` in an emulated pseudoterminal, verifies text rendering, sends input keys, and asserts clean zero-code exits:
+There are 23 stories across all 10 components, including compact/default/wide layouts,
+active search, no matches, no data, invalid files and scrolled content. Fixtures are
+synthetic and never read the user's configuration or working-directory YAML files.
+`bun run storybook` watches the native component imports and regenerates frames on edits.
+Test/build commands regenerate frames first, so stale previews are not accepted as a test.
 
-```bash
-brew install delaudio/tap/ttry
-ttry test
-```
+PNG baselines live in `storybook/stories/__screenshots__/`, grouped by story file.
+Keep these in version control and inspect changes before accepting an update. Filenames
+include browser and OS: the supplied baselines target **Chromium on macOS**; another OS
+needs its own baselines. Verification uses `--update=none` and fails on missing or changed
+images. `--update` deliberately writes new expected images. The generated frame JSON and
+`storybook-static/` build are disposable and ignored by Git.
 
----
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
+To add a scenario, add its native component/props in `scripts/render-stories.tsx`, then
+reference that frame ID in a `storybook/stories/*.stories.tsx` file and regenerate the
+baselines. Native JSX uses `@opentui/react`; browser JSX has a separate TypeScript config
+using `react`. TypeScript is pinned to 5.9 because the Storybook docgen tooling uses its
+compiler API, which is unavailable in the previously installed TypeScript 7 package.
 
