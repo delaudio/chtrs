@@ -32,9 +32,9 @@ sections:
       - { key: "5. git worktree remove ../wt/<task>", desc: "Tear down once the PR is merged/closed" }
   - title: Examples
     items:
-      - { key: "git worktree add ../compri-wt/CB-2472 -b feature/CB-2472 main", desc: "New task branch off main in a sibling folder, ready to code" }
-      - { key: "cd ../compri-wt/CB-2472 && pnpm install && pnpm --filter procurement-frontend dev", desc: "Install deps in the worktree and boot just that app" }
-      - { key: "git worktree add ../compri-wt/review-183 origin/feature/chat-improvements", desc: "Check out a teammate's PR branch to review/test without disturbing your work" }
-      - { key: "git worktree add -d ../compri-wt/hotfix-check 52e1d801", desc: "Poke around a specific past commit in a detached worktree" }
-      - { key: "git worktree list", desc: "→ /Users/fdg/dev/compri/compri-applications  abc1234 [main]\n  /Users/fdg/dev/compri/compri-wt/CB-2472  def5678 [feature/CB-2472]" }
-      - { key: "git worktree remove ../compri-wt/CB-2472 && git branch -d feature/CB-2472", desc: "PR merged — tear down worktree then delete the local branch" }
+      - { key: "git worktree add ../wt/task-123 -b feature/task-123 main", desc: "New task branch off main in a sibling folder, ready to code" }
+      - { key: "cd ../wt/task-123 && pnpm install && pnpm dev", desc: "Install deps in the worktree and start the app" }
+      - { key: "git worktree add ../wt/review-183 origin/feature/chat-improvements", desc: "Check out a teammate's PR branch to review/test without disturbing your work" }
+      - { key: "git worktree add -d ../wt/hotfix-check 52e1d801", desc: "Poke around a specific past commit in a detached worktree" }
+      - { key: "git worktree list", desc: "→ /home/user/dev/my-app  abc1234 [main]\n  /home/user/dev/wt/task-123  def5678 [feature/task-123]" }
+      - { key: "git worktree remove ../wt/task-123 && git branch -d feature/task-123", desc: "PR merged — tear down worktree then delete the local branch" }

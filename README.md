@@ -129,10 +129,10 @@ bun run build-storybook
 bun run typecheck:storybook
 ```
 
-This follows the Compri Storybook workflow: Storybook + Vitest Browser + Playwright,
+The visual testing workflow uses Storybook + Vitest Browser + Playwright,
 explicit baseline-update commands, and a server wrapper that waits for `/index.json`
-before testing and shuts down only processes it started. The default port is **6007**
-to coexist with Compri on 6006; override it with `STORYBOOK_PORT=6010`.
+before testing and shuts down only processes it started. The default port is **6007**;
+override it with `STORYBOOK_PORT=6010`.
 
 OpenTUI uses native Bun/FFI APIs, so the browser cannot mount its components directly.
 `scripts/render-stories.tsx` renders the actual React/OpenTUI components headlessly,
